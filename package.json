@@ -10,6 +10,6 @@
     "esbuild": "^0.19.0"
   },
   "scripts": {
-    "build": "esbuild main.jsx --bundle --format=esm --outfile=dist/main.js --loader:.jsx=jsx && mkdir -p dist && cp index.html dist/index.html && sed -i 's/\\.\\/main\\.jsx/\\.\\/main\\.js/' dist/index.html"
+    "build": "esbuild main.jsx --bundle --format=esm --outfile=dist/main.js --loader:.jsx=jsx && mkdir -p dist && cp index.html dist/index.html && sed -i s/main.jsx/main.js/ dist/index.html"
   }
 }
