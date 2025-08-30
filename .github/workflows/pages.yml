@@ -2,7 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -25,8 +26,7 @@ jobs:
       - run: npm install
       - run: npm run build
       - uses: actions/configure-pages@v3
-      # Upload the contents of the build folder as an artifact (v4 artifact action)
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4   # new artifact action
         with:
           name: github-pages
           path: dist
@@ -34,10 +34,12 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
     steps:
-      # Deploy the uploaded artifact to GitHub Pages using v2
       - uses: actions/deploy-pages@v2
         with:
           artifact_name: github-pages
