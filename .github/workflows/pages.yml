@@ -25,9 +25,10 @@ jobs:
       - run: npm install
       - run: npm run build
       - uses: actions/configure-pages@v3
-      - id: upload-pages
-        uses: actions/upload-pages-artifact@v2
+      # Upload the dist folder using the new artifact v4
+      - uses: actions/upload-artifact@v4
         with:
+          name: github-pages
           path: dist
   deploy:
     needs: build
@@ -35,4 +36,7 @@ jobs:
     environment:
       name: github-pages
     steps:
+      # Deploy the uploaded artifact to Pages
       - uses: actions/deploy-pages@v2
+        with:
+          artifact_name: github-pages
