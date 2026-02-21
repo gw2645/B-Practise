@@ -1,0 +1,466 @@
+/*
+ * Core stylesheet for Bandacious.
+ *
+ * This file defines colour tokens, typography rules and layout styles
+ * consistent with the Bandacious brand and WCAG 2.2 AA requirements.
+ * Colours and fonts are defined as CSS custom properties for easy reuse
+ * throughout the document.  Buttons, links and interactive components
+ * include clear focus indicators and adhere to minimum target sizes.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --color-primary: #C20015; /* Deep red matching the logo arc */
+  --color-secondary: #000000; /* Black */
+  --color-bg: #FFFFFF; /* White */
+  --color-accent: #F2F2F2; /* Muted grey for separation */
+  --color-grey-dark: #4D4D4D; /* Darker grey for secondary text */
+  --font-heading: 'Bangers', cursive;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* Reset & base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-secondary);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  font-family: var(--font-heading);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Accessibility: Focus outline for all interactive elements */
+a:focus,
+button:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Navigation */
+header {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-accent);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-left img {
+  height: 40px;
+}
+
+.nav-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-link {
+  font-weight: 600;
+  color: var(--color-secondary);
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+.btn {
+  display: inline-block;
+  min-width: 100px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover {
+  /* Slightly darker red for hover state (approx 10% darker) */
+  background-color: #a10013;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+}
+
+.btn-secondary:hover {
+  background-color: #333333;
+}
+
+/* Hero Section */
+.hero {
+  background-color: var(--color-bg);
+  padding: 4rem 1rem 3rem;
+  text-align: center;
+}
+
+.hero .tagline {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--color-secondary);
+}
+
+.hero .subheading {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: var(--color-grey-dark);
+  margin-bottom: 2rem;
+}
+
+.hero .cta-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Map Section */
+.map-section {
+  background-color: var(--color-accent);
+  padding: 3rem 1rem;
+}
+
+.map-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid var(--color-accent);
+  height: 400px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filter-group label {
+  font-size: 0.875rem;
+  color: var(--color-secondary);
+}
+
+.filter-group select,
+.filter-group input[type="range"] {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-accent);
+  font-size: 0.875rem;
+}
+
+/* Three Path Section */
+.paths {
+  padding: 3rem 1rem;
+  background-color: var(--color-bg);
+}
+
+.paths-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-secondary);
+  border-radius: 8px;
+  padding: 2rem 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-secondary);
+}
+
+.card p {
+  font-family: var(--font-body);
+  color: var(--color-grey-dark);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.card .btn {
+  margin-top: auto;
+}
+
+/* Events Section */
+.events {
+  padding: 3rem 1rem;
+  background-color: var(--color-accent);
+}
+
+.events-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.events-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-secondary);
+}
+
+.event-strip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+
+.event-card {
+  flex: 0 0 220px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-accent);
+  border-radius: 6px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.event-date {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.event-venue {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--color-secondary);
+}
+
+.event-artist {
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.event-location {
+  font-size: 0.875rem;
+  color: var(--color-grey-dark);
+}
+
+/* Featured Artists Section */
+.featured {
+  padding: 3rem 1rem;
+  background-color: var(--color-bg);
+}
+
+.featured-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featured-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-secondary);
+}
+
+.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.artist-card {
+  border: 1px solid var(--color-secondary);
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.artist-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.artist-name {
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.artist-rating {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.artist-genre {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+/* Social Proof Section */
+.social-proof {
+  padding: 3rem 1rem;
+  background-color: var(--color-accent);
+}
+
+.social-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+  text-align: center;
+}
+
+.metric {
+  flex: 1 1 200px;
+}
+
+.metric-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.metric-label {
+  font-family: var(--font-body);
+  color: var(--color-secondary);
+}
+
+/* Footer */
+footer {
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--color-bg);
+  font-size: 0.875rem;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero .tagline {
+    font-size: 2rem;
+  }
+  .events-title,
+  .featured-title {
+    font-size: 1.5rem;
+  }
+}

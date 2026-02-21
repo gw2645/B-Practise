@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{#
+  The homepage template for Bandacious.
+
+  This file extends ``base.html`` to inherit the common head and layout
+  structure.  It defines the main content blocks for the hero, map,
+  paths, events, featured artists, social proof and footer.  Use
+  accessible semantics (e.g., heading levels, ARIA labels) and avoid
+  unnecessary complexity.  See styles.css and main.js for styling and
+  behaviour.
+#}
+
+{% block content %}
+<header>
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="{{ url_for('read_home') }}" aria-label="Home">
+        <img src="{{ url_for('static', path='img/logo.jpg') }}" alt="Bandacious logo" height="40" />
+      </a>
+    </div>
+    <nav class="nav-right" aria-label="Primary">
+      <a class="nav-link" href="#explore">Explore</a>
+      <a class="nav-link" href="#events">Events</a>
+      <a class="nav-link" href="#bands">Bands</a>
+      <a class="nav-link" href="#venues">Venues</a>
+      <a class="btn btn-primary" href="/login">Login / Sign Up</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <h1 class="tagline">Where Bands Meet Venues.</h1>
+    <p class="subheading">Discover artists. Book gigs. Follow live music.</p>
+    <div class="cta-group">
+      <a href="/signup/band" class="btn btn-primary">Join as a Band</a>
+      <a href="/signup/venue" class="btn btn-primary">Join as a Venue</a>
+      <a href="/explore" class="btn btn-primary">Explore as a Listener</a>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section" id="map-section" aria-label="Map of venues">
+    <div class="map-controls">
+      <button id="whats-on-btn" type="button" class="btn btn-secondary" aria-label="Find what's on near me">What's on?</button>
+      <div class="filter-group" role="group" aria-label="Filters">
+        <label for="genre-filter">Genre:</label>
+        <select id="genre-filter" name="genre">
+          <option value="all">All</option>
+          {# genre options defined statically because venues have fixed genres in JS #}
+          <option value="Rock">Rock</option>
+          <option value="Pop">Pop</option>
+          <option value="Electronic">Electronic</option>
+          <option value="EDM">EDM</option>
+          <option value="Blues">Blues</option>
+          <option value="Folk">Folk</option>
+        </select>
+        <label for="distance-filter">Distance:</label>
+        <select id="distance-filter" name="distance">
+          <option value="5">5 mi</option>
+          <option value="10">10 mi</option>
+          <option value="25">25 mi</option>
+        </select>
+      </div>
+    </div>
+    <div class="map-container">
+      <div id="map" role="region" aria-label="Venue map" aria-describedby="map-description"></div>
+    </div>
+    <p id="map-description" class="sr-only">Map displaying venues registered on Bandacious. Use the filters to refine results.</p>
+  </section>
+
+  <!-- Three Path Section -->
+  <section class="paths" id="paths" aria-label="Self selection options">
+    <div class="paths-grid">
+      <div class="card" id="card-band">
+        <h3>Band / Artist / DJ</h3>
+        <p>Upload music. Share gigs. Get booked.</p>
+        <a href="/signup/band" class="btn btn-primary">Join as a Band</a>
+      </div>
+      <div class="card" id="card-venue">
+        <h3>Venue</h3>
+        <p>Promote events. Find talent. Fill your calendar.</p>
+        <a href="/signup/venue" class="btn btn-primary">Join as a Venue</a>
+      </div>
+      <div class="card" id="card-listener">
+        <h3>Listener</h3>
+        <p>Discover new music. Follow your favourites. Never miss a gig.</p>
+        <a href="/explore" class="btn btn-primary">Explore as a Listener</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Energy Section -->
+  <section class="events" id="events" aria-label="Upcoming gigs">
+    <div class="events-container">
+      <h2 class="events-title">Upcoming Gigs Near You</h2>
+      <div class="event-strip" role="list">
+        {% for event in events %}
+        <article class="event-card" role="listitem">
+          <div class="event-date">{{ event.date }}</div>
+          <div class="event-venue">{{ event.venue }}</div>
+          <div class="event-artist">{{ event.artist }}</div>
+          <div class="event-location">{{ event.location }}</div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured BADs Section -->
+  <section class="featured" id="bands" aria-label="Featured artists">
+    <div class="featured-container">
+      <h2 class="featured-title">Featured BADs</h2>
+      <div class="artists-grid">
+        {% for artist in artists %}
+        <div class="artist-card" role="article" aria-labelledby="artist-{{ loop.index }}">
+          <img src="{{ artist.image_url }}" alt="Photo of {{ artist.name }}" />
+          <div class="artist-name" id="artist-{{ loop.index }}">{{ artist.name }}</div>
+          <div class="artist-rating">{{ '{:.1f}'.format(artist.rating) }}/5</div>
+          <span class="artist-genre">{{ artist.genre }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof / Community Metrics -->
+  <section class="social-proof" id="community" aria-label="Community metrics">
+    <div class="social-container">
+      <div class="metric">
+        <div class="metric-number">1,200</div>
+        <div class="metric-label">gigs posted</div>
+      </div>
+      <div class="metric">
+        <div class="metric-number">350</div>
+        <div class="metric-label">venues onboard</div>
+      </div>
+      <div class="metric">
+        <div class="metric-number">5,000</div>
+        <div class="metric-label">tracks uploaded</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer id="venues" aria-label="Footer">
+  <div class="footer-container">
+    <div class="footer-links">
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/terms">Terms</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://twitter.com/Bandacious" target="_blank" rel="noopener">Twitter</a>
+      <a href="https://facebook.com/Bandacious" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://instagram.com/Bandacious" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+{# Include script only once at the end of body #}
+<script src="{{ url_for('static', path='js/main.js') }}"></script>
+{% if google_maps_api_key %}
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"></script>
+{% endif %}
+{% endblock %}
